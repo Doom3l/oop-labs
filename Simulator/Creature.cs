@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.ComponentModel;
 
 namespace Simulator;
 
@@ -79,5 +80,22 @@ public class Creature
     {
         if (level < 10)
             level++;
+    }
+    public void Go(Direction direction)
+    {
+        string dir = direction.ToString().ToLower();
+        Console.WriteLine($"{Name} goes {dir}.");
+    }
+
+    public void Go(Direction[] directions)
+    {
+        foreach (var d in directions)
+            Go(d);
+    }
+
+    public void Go(string input)
+    {
+        var dirs = DirectionParser.Parse(input);
+        Go(dirs);
     }
 }
