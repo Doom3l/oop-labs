@@ -7,7 +7,7 @@ using System.ComponentModel;
 
 namespace Simulator;
 
-public class Creature
+public abstract class Creature
 {
     private string name = "Unknown";
 
@@ -22,10 +22,9 @@ public class Creature
             nameSet = true;
 
 
-            if (string.IsNullOrWhiteSpace(value))
+            if (value == null)
             {
                 name = "Unknown";
-                return;
             }
 
             string temp = value.Trim();
@@ -70,10 +69,7 @@ public class Creature
         Level = level;
     }
 
-    public void SayHi()
-    {
-        Console.WriteLine($"Hi, I'm {Name}, level {Level} creature.");
-    }
+    public abstract void SayHi();
 
     public string Info => $"{Name} [{Level}]";
     public void Upgrade()
