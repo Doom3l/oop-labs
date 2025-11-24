@@ -94,4 +94,6 @@ public abstract class Creature
         var dirs = DirectionParser.Parse(input);
         Go(dirs);
     }
+
+    public abstract int Power { get; }
 }

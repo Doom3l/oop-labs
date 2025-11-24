@@ -2,8 +2,23 @@
 
 public class Elf : Creature
 {
-    public int Agility { get; set; } = 1;
-    public void Sing() => Console.WriteLine($"{Name} is singing.");
+    private int agility_buildup = 0;
+    private int agility = 1;
+    public int Agility 
+    {
+        get => agility;
+        init => agility = Math.Clamp(value, 1, 10);
+    }
+    public void Sing()
+    {
+        Console.WriteLine($"{Name} is singing.");
+        agility_buildup++;
+        if (agility_buildup >= 3)
+        {
+            agility = Math.Clamp(agility + 1, 1, 10);
+            agility_buildup = 0;
+        }
+    }
 
     public Elf(string name, int level = 1, int agility = 1) : base(name, level)
     {
@@ -19,4 +34,6 @@ public class Elf : Creature
     {
         return $"Hi, I'm {Name}, level {Level} agility {Agility}.";
     }
+
+    public override int Power => 8 * Level + 2 * Agility;
 }

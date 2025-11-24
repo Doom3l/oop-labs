@@ -4,31 +4,55 @@ internal class Program
 {
     static void Main(string[] args)
     {
-        object s = "I am object";
-        object i = 5;
-        object e = new Elf() { Name = "Legolas", Agility = 3 };
-
-        object[] objects = new object[] { s, i, e };
-
-        foreach (var o in objects)
+        Creature e = new Elf("Elrond", 10, 12);
+        Elf elf = new("Legolas", 5, 7);
+        e.SayHi();
+        e.Upgrade();
+        if (e is Elf)
         {
-            Console.WriteLine($"{o.GetType(),-15}: {o}");
+            (e as Elf)?.Sing();
         }
-        //Creature e = new Elf("Elrond", 10, 12);
-        //Elf elf = new("Legolas", 5, 7);
-        //e.SayHi();
-        //e.Upgrade();
-        //if (e is Elf)
-        //{
-        //    (e as Elf)?.Sing();
-        //}
-        //else
-        //{
-        //  Console.WriteLine($"{e.Name} is not an elf.");
-        //}
+        else
+        {
+          Console.WriteLine($"{e.Name} is not an elf.");
+        }
 
-        //Console.WriteLine(e.Info);
+        Console.WriteLine(e.Info);
 
-        //e.Go(Direction.Left);
+        e.Go(Direction.Left);
+        TestElfsAndOrcs();
+    }
+
+    static void TestElfsAndOrcs()
+    {
+        Console.WriteLine("HUNT TEST\n");
+        var o = new Orc() { Name = "Gorbag", Rage = 7 };
+        o.SayHi();
+        for (int i = 0; i < 10; i++)
+        {
+            o.Hunt();
+            o.SayHi();
+        }
+
+        Console.WriteLine("\nSING TEST\n");
+        var e = new Elf("Legolas", agility: 2);
+        e.SayHi();
+        for (int i = 0; i < 10; i++)
+        {
+            e.Sing();
+            e.SayHi();
+        }
+
+        Console.WriteLine("\nPOWER TEST\n");
+        Creature[] creatures = {
+        o,
+        e,
+        new Orc("Morgash", 3, 8),
+        new Elf("Elandor", 5, 3)
+    };
+        foreach (Creature creature in creatures)
+        {
+            Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
+        }
     }
 }
