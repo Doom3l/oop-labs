@@ -7,7 +7,7 @@ public class Elf : Creature
     public int Agility 
     {
         get => agility;
-        init => agility = Math.Clamp(value, 1, 10);
+        init => agility = Validator.Limiter(value, 1, 10);
     }
     public void Sing()
     {
@@ -15,7 +15,7 @@ public class Elf : Creature
         agility_buildup++;
         if (agility_buildup >= 3)
         {
-            agility = Math.Clamp(agility + 1, 1, 10);
+            agility = Validator.Limiter(agility + 1, 1, 10);
             agility_buildup = 0;
         }
     }

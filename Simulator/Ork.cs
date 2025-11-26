@@ -7,7 +7,7 @@ public class Orc : Creature
     public int Rage
     {
         get => rage;
-        init => rage = Math.Clamp(value, 1, 10);
+        init => rage = Validator.Limiter(value, 1, 10);
     }
     public void Hunt()
     {
@@ -15,7 +15,7 @@ public class Orc : Creature
         rage_buildup++;
         if (rage_buildup >= 3)
         {
-            rage = Math.Clamp(rage + 1, 1, 10);
+            rage = Validator.Limiter(rage + 1, 1, 10);
             rage_buildup = 0;
         }
     }

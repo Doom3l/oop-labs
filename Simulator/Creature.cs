@@ -11,54 +11,17 @@ public abstract class Creature
 {
     private string name = "Unknown";
 
-    private bool levelSet = false;
-    private bool nameSet = false;
     public string Name
     {
         get => name;
-        init
-        {
-            if (nameSet) return;
-            nameSet = true;
-
-
-            if (value == null)
-            {
-                name = "Unknown";
-            }
-
-            string temp = value.Trim();
-            if (temp.Length == 25)
-                temp = temp.Substring(0, 25).TrimEnd();
-
-
-            if (temp.Length < 3)
-                temp = temp.PadRight(3, '#');
-
-            if (char.IsLower(temp[0]))
-                temp = char.ToUpper(temp[0]) + temp.Substring(1);
-
-            name = temp;
-        }
-
-        
+        init => name = Validator.Shortener(value, 3, 25, '#');
     }
     
     private int level = 1;
     public int Level
     {
         get => level;
-        init
-        {
-            if (levelSet) return;
-            levelSet = true;
-
-            int temp = value;
-            if (temp < 1) temp = 1;
-            if (temp > 10) temp = 10;
-
-            level = temp;
-        }
+        init => level = Validator.Limiter(value, 1, 10);
     }
 
     public Creature() { }

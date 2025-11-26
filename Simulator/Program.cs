@@ -21,7 +21,45 @@ internal class Program
 
         e.Go(Direction.Left);
         TestElfsAndOrcs();
+        TestValidators();
     }
+
+    static void TestValidators()
+    {
+        Creature c;
+
+        c = new Elf("   Shrek    ", 20, 5);
+        c.SayHi();
+        c.Upgrade();
+        Console.WriteLine(c.Info);
+
+        c = new Orc("  ", -5, -3);
+        c.SayHi();
+        c.Upgrade();
+        Console.WriteLine(c.Info);
+
+        c = new Elf("  donkey ", 7, 3);
+        c.SayHi();
+        c.Upgrade();
+        Console.WriteLine(c.Info);
+
+        c = new Orc("Puss in Boots – a clever and brave cat.", 1, 2);
+        c.SayHi();
+        c.Upgrade();
+        Console.WriteLine(c.Info);
+
+        c = new Elf("a                            troll name", 5, 9);
+        c.SayHi();
+        c.Upgrade();
+        Console.WriteLine(c.Info);
+
+        var a = new Animals() { Description = "   Cats " };
+        Console.WriteLine(a.Info);
+
+        a = new Animals() { Description = "Mice           are great", Size = 40 };
+        Console.WriteLine(a.Info);
+    }
+
 
     static void TestElfsAndOrcs()
     {
