@@ -7,7 +7,7 @@ public class Elf : Creature
     public int Agility 
     {
         get => agility;
-        init => agility = Validator.Limiter(value, 1, 10);
+        init => agility = Validator.Limiter(value, 0, 10);
     }
     public void Sing()
     {
@@ -15,7 +15,7 @@ public class Elf : Creature
         agility_buildup++;
         if (agility_buildup >= 3)
         {
-            agility = Validator.Limiter(agility + 1, 1, 10);
+            agility = Validator.Limiter(agility + 1, 0, 10);
             agility_buildup = 0;
         }
     }
@@ -29,11 +29,7 @@ public class Elf : Creature
     {
         Console.WriteLine($"Hi, I'm {Name}, level {Level} agility {Agility}.");
     }
-
-    public override string ToString()
-    {
-        return $"Hi, I'm {Name}, level {Level} agility {Agility}.";
-    }
-
     public override int Power => 8 * Level + 2 * Agility;
+
+    public override string Info => $"{Name}, [{Level}], [{Agility}]";
 }

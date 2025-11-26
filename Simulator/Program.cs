@@ -20,8 +20,9 @@ internal class Program
         Console.WriteLine(e.Info);
 
         e.Go(Direction.Left);
-        TestElfsAndOrcs();
-        TestValidators();
+        //TestElfsAndOrcs();
+        //TestValidators();
+        TestObjectsToString();
     }
 
     static void TestValidators()
@@ -60,7 +61,6 @@ internal class Program
         Console.WriteLine(a.Info);
     }
 
-
     static void TestElfsAndOrcs()
     {
         Console.WriteLine("HUNT TEST\n");
@@ -92,5 +92,23 @@ internal class Program
         {
             Console.WriteLine($"{creature.Name,-15}: {creature.Power}");
         }
+    }
+    static void TestObjectsToString()
+    {
+        object[] myObjects = {
+        new Animals() { Description = "dogs"},
+        new Birds { Description = "  eagles ", Size = 10 },
+        new Elf("e", 15, -3),
+        new Orc("morgash", 6, 4)
+    };
+        Console.WriteLine("\nMy objects:");
+        foreach (var o in myObjects) Console.WriteLine(o);
+        /*
+            My objects:
+            ANIMALS: Dogs <3>
+            BIRDS: Eagles (fly+) <10>
+            ELF: E## [10][0]
+            ORC: Morgash [6][4]
+        */
     }
 }

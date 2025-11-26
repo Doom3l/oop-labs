@@ -7,7 +7,8 @@ using System.Threading.Tasks;
 namespace Simulator;
 
 public class Animals
-{   public uint Size { get; set; } = 3;
+{   
+    public uint Size { get; set; } = 3;
 
     private string description = "Unknown";
 
@@ -16,6 +17,10 @@ public class Animals
         get => description;
         init => description = Validator.Shortener(value, 3, 25, '#');
     }
-public string Info => $"{Description}, <{Size}>";
+    public virtual string Info => $"{Description}, <{Size}>";
 
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
 }

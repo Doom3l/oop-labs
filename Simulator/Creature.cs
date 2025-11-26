@@ -34,7 +34,7 @@ public abstract class Creature
 
     public abstract void SayHi();
 
-    public string Info => $"{Name} [{Level}]";
+    public abstract string Info { get;  }
     public void Upgrade()
     {
         if (level < 10)
@@ -59,4 +59,9 @@ public abstract class Creature
     }
 
     public abstract int Power { get; }
+
+    public override string ToString()
+    {
+        return $"{GetType().Name.ToUpper()}: {Info}";
+    }
 }
