@@ -6,7 +6,7 @@ internal class Program
     {
         Creature e = new Elf("Elrond", 10, 12);
         Elf elf = new("Legolas", 5, 7);
-        e.SayHi();
+        Console.WriteLine(e.Greetings());
         e.Upgrade();
         if (e is Elf)
         {
@@ -30,27 +30,27 @@ internal class Program
         Creature c;
 
         c = new Elf("   Shrek    ", 20, 5);
-        c.SayHi();
+        Console.WriteLine(c.Greetings());
         c.Upgrade();
         Console.WriteLine(c.Info);
 
         c = new Orc("  ", -5, -3);
-        c.SayHi();
+        Console.WriteLine(c.Greetings());
         c.Upgrade();
         Console.WriteLine(c.Info);
 
         c = new Elf("  donkey ", 7, 3);
-        c.SayHi();
+        Console.WriteLine(c.Greetings());
         c.Upgrade();
         Console.WriteLine(c.Info);
 
         c = new Orc("Puss in Boots – a clever and brave cat.", 1, 2);
-        c.SayHi();
+        Console.WriteLine(c.Greetings());
         c.Upgrade();
         Console.WriteLine(c.Info);
 
         c = new Elf("a                            troll name", 5, 9);
-        c.SayHi();
+        Console.WriteLine(c.Greetings());
         c.Upgrade();
         Console.WriteLine(c.Info);
 
@@ -65,20 +65,20 @@ internal class Program
     {
         Console.WriteLine("HUNT TEST\n");
         var o = new Orc() { Name = "Gorbag", Rage = 7 };
-        o.SayHi();
+        Console.WriteLine(o.Greetings());
         for (int i = 0; i < 10; i++)
         {
             o.Hunt();
-            o.SayHi();
+            Console.WriteLine(o.Greetings());
         }
 
         Console.WriteLine("\nSING TEST\n");
         var e = new Elf("Legolas", agility: 2);
-        e.SayHi();
+        Console.WriteLine(e.Greetings());
         for (int i = 0; i < 10; i++)
         {
             e.Sing();
-            e.SayHi();
+            Console.WriteLine(e.Greetings());
         }
 
         Console.WriteLine("\nPOWER TEST\n");

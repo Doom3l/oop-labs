@@ -11,7 +11,6 @@ public class Orc : Creature
     }
     public void Hunt()
     {
-        Console.WriteLine($"{Name} is hunting.");
         rage_buildup++;
         if (rage_buildup >= 3)
         {
@@ -26,9 +25,9 @@ public class Orc : Creature
     {
         Rage = rage;
     }
-    public override void SayHi()
+    public override string Greetings()
     {
-        Console.WriteLine($"Hi, I'm {Name}, level {Level} rage {Rage}.");
+        return $"Hi, I'm {Name}, level {Level} rage {Rage}.";
     }
     public override int Power => 7 * Level + 3 * Rage;
 

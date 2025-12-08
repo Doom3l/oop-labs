@@ -11,7 +11,6 @@ public class Elf : Creature
     }
     public void Sing()
     {
-        Console.WriteLine($"{Name} is singing.");
         agility_buildup++;
         if (agility_buildup >= 3)
         {
@@ -25,9 +24,9 @@ public class Elf : Creature
         Agility = agility;
     }
     public Elf() { }
-    public override void SayHi()
+    public override string Greetings()
     {
-        Console.WriteLine($"Hi, I'm {Name}, level {Level} agility {Agility}.");
+        return $"Hi, I'm {Name}, level {Level} agility {Agility}.";
     }
     public override int Power => 8 * Level + 2 * Agility;
 

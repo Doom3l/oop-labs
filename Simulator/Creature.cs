@@ -32,7 +32,7 @@ public abstract class Creature
         Level = level;
     }
 
-    public abstract void SayHi();
+    public abstract string Greetings();
 
     public abstract string Info { get;  }
     public void Upgrade()
@@ -40,23 +40,18 @@ public abstract class Creature
         if (level < 10)
             level++;
     }
-    public void Go(Direction direction)
-    {
-        string dir = direction.ToString().ToLower();
-        Console.WriteLine($"{Name} goes {dir}.");
-    }
+    public string Go(Direction direction)
+        => direction.ToString().ToLower();
 
-    public void Go(Direction[] directions)
-    {
-        foreach (var d in directions)
-            Go(d);
-    }
+    public string[] Go(Direction[] directions)
+        => directions.Select(d => Go(d)).ToArray();
 
-    public void Go(string input)
+    public string[] Go(string input)
     {
         var dirs = DirectionParser.Parse(input);
-        Go(dirs);
+        return Go(dirs);
     }
+
 
     public abstract int Power { get; }
 
