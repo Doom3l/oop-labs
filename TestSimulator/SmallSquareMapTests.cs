@@ -9,7 +9,8 @@ public class SmallSquareMapTests
     public void Constructor_ValidSize_ShouldSetSize()
     {
         var m = new SmallSquareMap(10);
-        Assert.Equal(10, m.Size);
+        Assert.Equal(10, m.SizeX);
+        Assert.Equal(10, m.SizeY);
     }
 
     [Theory]

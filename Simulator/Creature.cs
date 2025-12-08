@@ -1,14 +1,25 @@
-﻿using System;
+﻿using Simulator.Maps;
+using System;
 using System.Collections.Generic;
+using System.ComponentModel;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
-using System.ComponentModel;
 
 namespace Simulator;
 
 public abstract class Creature
 {
+    private Map? map;
+    private Point? position;
+
+    public void Place(Map m, Point p)
+    {
+        map = m;
+        position = p;
+        m.Add(this, p);
+    }
+
     private string name = "Unknown";
 
     public string Name
@@ -40,18 +51,15 @@ public abstract class Creature
         if (level < 10)
             level++;
     }
-    public string Go(Direction direction)
-        => direction.ToString().ToLower();
-
-    public string[] Go(Direction[] directions)
-        => directions.Select(d => Go(d)).ToArray();
-
-    public string[] Go(string input)
+    public void Go(Direction d)
     {
-        var dirs = DirectionParser.Parse(input);
-        return Go(dirs);
-    }
+        if (map == null || position == null)
+            return;
 
+        var newPos = map.Next(position.Value, d);
+        map.Move(this, position.Value, newPos);
+        position = newPos;
+    }
 
     public abstract int Power { get; }
 
