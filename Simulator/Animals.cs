@@ -1,13 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Simulator.Maps;
 
 namespace Simulator;
 
-public class Animals
-{   
+public class Animals : IMappable
+{
     public uint Size { get; set; } = 3;
 
     private string description = "Unknown";
@@ -17,7 +13,14 @@ public class Animals
         get => description;
         init => description = Validator.Shortener(value, 3, 25, '#');
     }
+
     public virtual string Info => $"{Description}, <{Size}>";
+
+    public virtual char Symbol => 'A';
+
+    public virtual void Go(Direction direction)
+    {
+    }
 
     public override string ToString()
     {

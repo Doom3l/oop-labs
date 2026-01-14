@@ -78,7 +78,25 @@ namespace Simulator
 
             Direction direction = parsedMoves[moveIndex % parsedMoves.Length];
 
-            Point newPos = Map.Next(currentPosition, direction);
+            Point newPos;
+
+            if (creature is Birds b && !b.CanFly)
+            {
+                newPos = Map.NextDiagonal(currentPosition, direction);
+            }
+            else if (creature is Birds)
+            {
+                // ptaki latające → 2 pola
+                newPos = Map.Next(
+                    Map.Next(currentPosition, direction),
+                    direction
+                );
+            }
+            else
+            {
+                newPos = Map.Next(currentPosition, direction);
+            }
+
 
             Positions[creatureIndex] = newPos;
 
