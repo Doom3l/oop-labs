@@ -1,9 +1,8 @@
 ﻿namespace Simulator.Maps;
 
 public abstract class Map
-
 {
-    protected readonly Dictionary<Point, List<Creature>> _entities = new();
+    protected readonly Dictionary<Point, List<IMappable>> entities = new();
 
     public int SizeX { get; }
     public int SizeY { get; }
@@ -12,28 +11,27 @@ public abstract class Map
     {
         if (sizeX < 5 || sizeY < 5)
             throw new ArgumentOutOfRangeException("Min size is 5");
+
         SizeX = sizeX;
         SizeY = sizeY;
     }
-    protected readonly Dictionary<Point, List<Creature>> entities =
-    new();
 
-    protected void AddEntity(Creature c, Point p)
+    protected void AddEntity(IMappable entity, Point p)
     {
         if (!entities.ContainsKey(p))
-            entities[p] = new List<Creature>();
+            entities[p] = new List<IMappable>();
 
-        entities[p].Add(c);
+        entities[p].Add(entity);
     }
-
 
     public abstract bool Exist(Point p);
     public abstract Point Next(Point p, Direction d);
     public abstract Point NextDiagonal(Point p, Direction d);
-    public abstract void Add(Creature creature, Point point);
-    public abstract void Remove(Creature creature, Point point);
-    public abstract void Move(Creature creature, Point from, Point to);
-    public abstract IEnumerable<Creature> At(Point point);
-    public IEnumerable<Creature> At(int x, int y) => At(new Point(x, y));
 
+    public abstract void Add(IMappable entity, Point point);
+    public abstract void Remove(IMappable entity, Point point);
+    public abstract void Move(IMappable entity, Point from, Point to);
+
+    public abstract IEnumerable<IMappable> At(Point point);
+    public IEnumerable<IMappable> At(int x, int y) => At(new Point(x, y));
 }

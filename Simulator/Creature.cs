@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Simulator;
 
-public abstract class Creature
+public abstract class Creature : IMappable
 {
     private Map? map;
     private Point? position;

@@ -8,14 +8,14 @@ namespace Simulator
     public class Simulation
     {
         public Map Map { get; }
-        public List<Creature> Creatures { get; }
+        public List<IMappable> Creatures { get; }
         public List<Point> Positions { get; }
         public string Moves { get; }
         public bool Finished = false;
 
         private int moveIndex = 0;
 
-        public Creature CurrentCreature
+        public IMappable CurrentCreature
         {
             get
             {
@@ -35,8 +35,11 @@ namespace Simulator
             }
         }
 
-        public Simulation(Map map, List<Creature> creatures,
-            List<Point> positions, string moves)
+        public Simulation(
+            Map map,
+            List<IMappable> creatures,
+            List<Point> positions,
+            string moves)
         {
             if (creatures == null || creatures.Count == 0)
                 throw new ArgumentException("Creatures list is empty.");

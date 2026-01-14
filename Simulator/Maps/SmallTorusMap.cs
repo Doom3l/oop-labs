@@ -30,31 +30,31 @@ public class SmallTorusMap : Map
         );
     }
 
-    public override void Add(Creature creature, Point point)
+    public override void Add(IMappable entity, Point point)
     {
-        if (!_entities.ContainsKey(point))
-            _entities[point] = new List<Creature>();
+        if (!entities.ContainsKey(point))
+            entities[point] = new List<IMappable>();
 
-        _entities[point].Add(creature);
+        entities[point].Add(entity);
     }
 
-    public override void Remove(Creature creature, Point point)
+    public override void Remove(IMappable entity, Point point)
     {
-        if (_entities.ContainsKey(point))
-            _entities[point].Remove(creature);
+        if (entities.ContainsKey(point))
+            entities[point].Remove(entity);
     }
 
-    public override void Move(Creature creature, Point from, Point to)
+    public override void Move(IMappable entity, Point from, Point to)
     {
-        Remove(creature, from);
-        Add(creature, to);
+        Remove(entity, from);
+        Add(entity, to);
     }
 
-    public override IEnumerable<Creature> At(Point point)
+    public override IEnumerable<IMappable> At(Point point)
     {
-        if (!_entities.ContainsKey(point))
-            return Enumerable.Empty<Creature>();
+        if (!entities.ContainsKey(point))
+            return Enumerable.Empty<IMappable>();
 
-        return _entities[point];
+        return entities[point];
     }
 }
