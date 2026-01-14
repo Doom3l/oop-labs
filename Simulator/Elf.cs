@@ -2,6 +2,8 @@
 
 public class Elf : Creature
 {
+    public override char Symbol => 'E';
+
     private int agility_buildup = 0;
     private int agility = 1;
     public int Agility 

@@ -10,6 +10,7 @@ namespace Simulator;
 
 public abstract class Creature : IMappable
 {
+    public abstract char Symbol { get; }
     private Map? map;
     private Point? position;
 
