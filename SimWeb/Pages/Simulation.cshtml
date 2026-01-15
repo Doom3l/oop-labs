@@ -1,0 +1,62 @@
+﻿@page
+@using Simulator
+@model SimulationModel
+
+@section Styles {
+    <link rel="stylesheet" href="~/css/simulation.css" />
+}
+
+<div class="map-header">
+    <form method="post" asp-page-handler="Previous">
+        <button>&larr;</button>
+    </form>
+
+    <div class="turn">
+        Tura @Model.TurnIndex
+    </div>
+
+    <form method="post" asp-page-handler="Next">
+        <button>&rarr;</button>
+    </form>
+</div>
+
+<div class="map">
+@for (int y = Model.Log.SizeY - 1; y >= 0; y--)
+{
+    <p>@y</p>
+    @for (int x = 0; x < Model.Log.SizeX; x++)
+    {
+        var point = new Point(x, y);
+        if (Model.CurrentTurn.Symbols.TryGetValue(point, out var symbol))
+        {
+            <div>
+                <img src="~/images/@(symbol switch {
+                    'E' => "elf-80.png",
+                    'O' => "ork-80.png",
+                    'A' => "rabbit-80.png",
+                    'B' => "eagle-80.png",
+                    'b' => "emu-80.png",
+                    'X' => "combo-80.png",
+                    _ => ""
+                })" />
+            </div>
+        }
+        else
+        {
+            <div></div>
+        }
+    }
+}
+<span></span>
+@for (int x = 0; x < Model.Log.SizeX; x++)
+{
+    <span>@x</span>
+}
+</div>
+
+<div class="map-header">
+    @Model.CurrentTurn.Mappable
+    <span class="alert">
+        &nbsp;&rArr; @Model.CurrentTurn.Move
+    </span>
+</div>

@@ -1,0 +1,59 @@
+﻿main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.map {
+    display: grid;
+    grid-template-columns: max-content repeat(8, max-content);
+    grid-template-rows: repeat(6, max-content) max-content;
+    gap: 4px;
+    margin: 20px auto;
+}
+
+
+
+    .map > div {
+        background-color: lightgreen;
+        outline: 1px dashed var(--dark-color);
+        min-width: 80px;
+        aspect-ratio: 1;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .map > p {
+        padding-right: .4rem;
+    }
+
+    .map > span {
+        padding-top: .2rem;
+    }
+
+
+.map-header {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 1rem;
+    font-weight: 700;
+    text-align: center;
+    font-size: 1.2rem;
+    margin-left: 1rem;
+}
+
+.turn {
+    min-width: 11rem;
+}
+
+.alert {
+    color: darkred;
+}
+
+button {
+    min-width: 4rem;
+    min-height: 3rem;
+    font-size: 1.6rem;
+}
