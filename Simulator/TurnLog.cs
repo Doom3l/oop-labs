@@ -20,4 +20,7 @@ public class TurnLog
     /// Dictionary of IMappable.Symbol on the map in this turn.
     /// </summary>
     public required Dictionary<Point, char> Symbols { get; init; }
+
+    public required Dictionary<string, int> Health { get; init; }
+
 }

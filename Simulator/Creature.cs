@@ -8,7 +8,7 @@ using System.Threading.Tasks;
 
 namespace Simulator;
 
-public abstract class Creature : IMappable
+public abstract class Creature : IMappable, IFightable
 {
     public abstract char Symbol { get; }
     private Map? map;
@@ -68,4 +68,14 @@ public abstract class Creature : IMappable
     {
         return $"{GetType().Name.ToUpper()}: {Info}";
     }
+
+    public int Health { get; private set; } = 3;
+
+    public bool IsAlive => Health > 0;
+
+    public void TakeDamage(int damage)
+    {
+        Health = Math.Max(Health - damage, 0);
+    }
+
 }

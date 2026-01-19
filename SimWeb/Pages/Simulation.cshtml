@@ -6,57 +6,78 @@
     <link rel="stylesheet" href="~/css/simulation.css" />
 }
 
-<div class="map-header">
-    <form method="post" asp-page-handler="Previous">
-        <button>&larr;</button>
-    </form>
+<div class="simulation-container">
 
-    <div class="turn">
-        Tura @Model.TurnIndex
-    </div>
-
-    <form method="post" asp-page-handler="Next">
-        <button>&rarr;</button>
-    </form>
-</div>
-
-<div class="map">
-@for (int y = Model.Log.SizeY - 1; y >= 0; y--)
-{
-    <p>@y</p>
-    @for (int x = 0; x < Model.Log.SizeX; x++)
-    {
-        var point = new Point(x, y);
-        if (Model.CurrentTurn.Symbols.TryGetValue(point, out var symbol))
+    <aside class="hp-panel">
+        <h3>HP</h3>
+        <ul>
+        @foreach (var entry in Model.CurrentTurn.Health)
         {
-            <div>
-                <img src="~/images/@(symbol switch {
-                    'E' => "elf-80.png",
-                    'O' => "ork-80.png",
-                    'A' => "rabbit-80.png",
-                    'B' => "eagle-80.png",
-                    'b' => "emu-80.png",
-                    'X' => "combo-80.png",
-                    _ => ""
-                })" />
+            <li>
+                 @entry.Key : @entry.Value
+            </li>
+        }
+        </ul>
+    </aside>
+
+
+    <!-- MAPA + STEROWANIE -->
+    <section class="simulation-main">
+
+        <div class="map-header">
+            <form method="post" asp-page-handler="Previous">
+                <button>&larr;</button>
+            </form>
+
+            <div class="turn">
+                Tura @Model.TurnIndex
             </div>
-        }
-        else
-        {
-            <div></div>
-        }
-    }
-}
-<span></span>
-@for (int x = 0; x < Model.Log.SizeX; x++)
-{
-    <span>@x</span>
-}
-</div>
 
-<div class="map-header">
-    @Model.CurrentTurn.Mappable
-    <span class="alert">
-        &nbsp;&rArr; @Model.CurrentTurn.Move
-    </span>
+            <form method="post" asp-page-handler="Next">
+                <button>&rarr;</button>
+            </form>
+        </div>
+
+        <div class="map">
+        @for (int y = Model.Log.SizeY - 1; y >= 0; y--)
+        {
+            <p>@y</p>
+            @for (int x = 0; x < Model.Log.SizeX; x++)
+            {
+                var point = new Point(x, y);
+                if (Model.CurrentTurn.Symbols.TryGetValue(point, out var symbol))
+                {
+                    <div>
+                        <img src="~/images/@(symbol switch {
+                            'E' => "elf-80.png",
+                            'O' => "ork-80.png",
+                            'A' => "rabbit-80.png",
+                            'B' => "eagle-80.png",
+                            'b' => "emu-80.png",
+                            'X' => "combo-80.png",
+                            _ => ""
+                        })" />
+                    </div>
+                }
+                else
+                {
+                    <div></div>
+                }
+            }
+        }
+        <span></span>
+        @for (int x = 0; x < Model.Log.SizeX; x++)
+        {
+            <span>@x</span>
+        }
+        </div>
+
+        <div class="map-header">
+            @Model.CurrentTurn.Mappable
+            <span class="alert">
+                &nbsp;&rArr; @Model.CurrentTurn.Move
+            </span>
+        </div>
+
+    </section>
 </div>

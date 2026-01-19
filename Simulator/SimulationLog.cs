@@ -1,5 +1,4 @@
-﻿using System.Drawing;
-using Simulator.Maps;
+﻿using Simulator.Maps;
 
 namespace Simulator;
 
@@ -12,11 +11,10 @@ public class SimulationLog
 
     public List<TurnLog> TurnLogs { get; } = [];
 
-    // store starting positions at index 0
     public SimulationLog(Simulation simulation)
     {
-        _simulation = simulation ??
-            throw new ArgumentNullException(nameof(simulation));
+        _simulation = simulation
+            ?? throw new ArgumentNullException(nameof(simulation));
 
         SizeX = _simulation.Map.SizeX;
         SizeY = _simulation.Map.SizeY;
@@ -26,29 +24,33 @@ public class SimulationLog
 
     private void Run()
     {
-        // ZAPIS STANU POCZĄTKOWEGO (tura 0)
-        TurnLogs.Add(new TurnLog
-        {
-            Mappable = "",
-            Move = "",
-            Symbols = CaptureSymbols()
-        });
+        SaveTurn(); 
 
-        // kolejne tury
         while (!_simulation.Finished)
         {
-            string mappable = _simulation.CurrentCreature.ToString();
-            string move = _simulation.CurrentMoveName;
-
-            _simulation.Turn();
-
-            TurnLogs.Add(new TurnLog
-            {
-                Mappable = mappable,
-                Move = move,
-                Symbols = CaptureSymbols()
-            });
+            _simulation.Turn(); 
+            SaveTurn();         
         }
+    }
+
+    private void SaveTurn()
+    {
+        var symbols = CaptureSymbols();
+
+        var health = _simulation.Creatures
+            .OfType<IFightable>()
+            .ToDictionary(
+                f => f.GetType().Name,
+                f => f.Health
+            );
+
+        TurnLogs.Add(new TurnLog
+        {
+            Mappable = _simulation.CurrentCreature?.ToString() ?? "",
+            Move = _simulation.CurrentMoveName ?? "",
+            Symbols = symbols,
+            Health = health
+        });
     }
 
     private Dictionary<Point, char> CaptureSymbols()

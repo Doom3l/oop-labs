@@ -106,6 +106,35 @@ namespace Simulator
 
             if (moveIndex >= parsedMoves.Length)
                 Finished = true;
+
+            var fightersOnField = new List<IFightable>();
+
+            for (int i = 0; i < Positions.Count; i++)
+            {
+                if (Positions[i].Equals(newPos) && Creatures[i] is IFightable f)
+                {
+                    fightersOnField.Add(f);
+                }
+            }
+
+            if (fightersOnField.Count >= 2)
+            {
+                var attacker = fightersOnField[0];
+                var defender = fightersOnField[1];
+
+                defender.TakeDamage(1);
+
+                if (!defender.IsAlive)
+                {
+                    int index = Creatures.FindIndex(c => ReferenceEquals(c, defender));
+
+                    Map.Remove(Creatures[index], newPos);
+                    Creatures.RemoveAt(index);
+                    Positions.RemoveAt(index);
+                }
+            }
+
+
         }
     }
 }
