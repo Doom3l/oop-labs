@@ -1,6 +1,7 @@
 using Microsoft.AspNetCore.Mvc.RazorPages;
 using Simulator;
 using Simulator.Maps;
+using Simulator.Obstacles;
 
 namespace SimWeb.Pages;
 
@@ -36,6 +37,13 @@ public class SimulationModel : PageModel
     private void InitSimulation()
     {
         SmallTorusMap map = new(8, 6);
+
+        //dodanie przeszkody
+        map.AddObstacle(new Rock(new Point(6, 1)));
+        map.AddObstacle(new Rock(new Point(4, 3)));
+        map.AddObstacle(new Rock(new Point(2, 3)));
+
+
 
         List<IMappable> creatures =
         [

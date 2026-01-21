@@ -55,6 +55,7 @@
                             'B' => "eagle-80.png",
                             'b' => "emu-80.png",
                             'X' => "combo-80.png",
+                            '#' => "rock-80.png",
                             _ => ""
                         })" />
                     </div>
@@ -72,12 +73,20 @@
         }
         </div>
 
-        <div class="map-header">
-            @Model.CurrentTurn.Mappable
-            <span class="alert">
-                &nbsp;&rArr; @Model.CurrentTurn.Move
-            </span>
+<div class="map-header">
+    @Model.CurrentTurn.Mappable
+    <span class="alert">
+        &nbsp;&rArr; @Model.CurrentTurn.Move
+    </span>
+
+    @if (!string.IsNullOrEmpty(Model.CurrentTurn.Message))
+    {
+        <div style="color: red; font-weight: bold;">
+            ⚠️ @Model.CurrentTurn.Message
         </div>
+    }
+</div>
+
 
     </section>
 </div>

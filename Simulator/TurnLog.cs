@@ -23,4 +23,5 @@ public class TurnLog
 
     public required Dictionary<string, int> Health { get; init; }
 
+    public required string Message { get; init; }
 }

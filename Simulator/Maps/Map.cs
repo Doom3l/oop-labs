@@ -1,8 +1,13 @@
-﻿namespace Simulator.Maps;
+﻿using Simulator.Obstacles;
+using System.Linq;
+
+namespace Simulator.Maps;
 
 public abstract class Map
 {
     protected readonly Dictionary<Point, List<IMappable>> entities = new();
+
+    protected readonly List<IObstacle> obstacles = new();
 
     public int SizeX { get; }
     public int SizeY { get; }
@@ -23,6 +28,17 @@ public abstract class Map
 
         entities[p].Add(entity);
     }
+
+    public void AddObstacle(IObstacle obstacle)
+    {
+        obstacles.Add(obstacle);
+    }
+
+    public bool IsBlocked(Point p)
+    {
+        return obstacles.Any(o => o.Blocks(p));
+    }
+
 
     public abstract bool Exist(Point p);
     public abstract Point Next(Point p, Direction d);

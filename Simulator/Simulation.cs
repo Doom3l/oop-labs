@@ -13,6 +13,8 @@ namespace Simulator
         public string Moves { get; }
         public bool Finished = false;
 
+        public string LastMessage { get; private set; } = "";
+
         private int moveIndex = 0;
 
         public IMappable CurrentCreature
@@ -63,6 +65,9 @@ namespace Simulator
             if (Finished)
                 throw new InvalidOperationException("Simulation is already finished.");
 
+            LastMessage = "";
+
+
             var parsedMoves = DirectionParser.Parse(Moves);
 
             if (parsedMoves.Length == 0)
@@ -98,7 +103,15 @@ namespace Simulator
             }
 
 
-            Positions[creatureIndex] = newPos;
+            //blokowanie ruchu
+            if (!Map.IsBlocked(newPos))
+            {
+                Positions[creatureIndex] = newPos;
+            }
+            else
+            {
+                LastMessage = "Ruch zablokowany przez przeszkodę";
+            }
 
             creature.Go(direction);
 

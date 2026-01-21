@@ -24,12 +24,12 @@ public class SimulationLog
 
     private void Run()
     {
-        SaveTurn(); 
+        SaveTurn();
 
         while (!_simulation.Finished)
         {
-            _simulation.Turn(); 
-            SaveTurn();         
+            _simulation.Turn();
+            SaveTurn();
         }
     }
 
@@ -49,8 +49,10 @@ public class SimulationLog
             Mappable = _simulation.CurrentCreature?.ToString() ?? "",
             Move = _simulation.CurrentMoveName ?? "",
             Symbols = symbols,
-            Health = health
+            Health = health,
+            Message = _simulation.LastMessage
         });
+
     }
 
     private Dictionary<Point, char> CaptureSymbols()
@@ -66,6 +68,20 @@ public class SimulationLog
                 symbols[p] = c.Symbol;
             else
                 symbols[p] = 'X';
+        }
+
+        //rysowanie przeszkód
+        for (int x = 0; x < SizeX; x++)
+        {
+            for (int y = 0; y < SizeY; y++)
+            {
+                var p = new Point(x, y);
+
+                if (_simulation.Map.IsBlocked(p) && !symbols.ContainsKey(p))
+                {
+                    symbols[p] = '#';
+                }
+            }
         }
 
         return symbols;
